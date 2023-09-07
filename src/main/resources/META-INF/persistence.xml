@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="com.tcd_QLPM_war_1.0-SNAPSHOTPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>com.tcd.pojo.Patients</class>
+    <class>com.tcd.pojo.Medicine</class>
+    <class>com.tcd.pojo.Services</class>
+    <class>com.tcd.pojo.Employees</class>
+    <class>com.tcd.pojo.Category</class>
+    <class>com.tcd.pojo.Userlogin</class>
+    <class>com.tcd.pojo.Servicedetails</class>
+    <class>com.tcd.pojo.Invoices</class>
+    <class>com.tcd.pojo.Appointments</class>
+    <class>com.tcd.pojo.Prescriptions</class>
+    <class>com.tcd.pojo.Appointmenthistory</class>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/qlpm?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.password" value="admin@123"/>
+    </properties>
+  </persistence-unit>
+</persistence>
