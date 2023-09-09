@@ -50,7 +50,6 @@ import org.springframework.web.multipart.MultipartFile;
     @NamedQuery(name = "Medicine.findByImage", query = "SELECT m FROM Medicine m WHERE m.image = :image")})
 public class Medicine implements Serializable {
 
-    
 
     /**
      * @return the file
@@ -117,7 +116,8 @@ public class Medicine implements Serializable {
     private Collection<Prescriptions> prescriptionsCollection;
     @Transient
     private MultipartFile file;
-
+  
+    
     public Medicine() {
     }
 
@@ -135,7 +135,7 @@ public class Medicine implements Serializable {
         this.description = description;
         this.unitPrice = unitPrice;
     }
-
+    
     public Integer getId() {
         return id;
     }

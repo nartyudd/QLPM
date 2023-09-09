@@ -19,14 +19,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="${action}#">Trang chủ</a>
                 </li>
-                <c:forEach items="${categories}" var="c">
-                    <c:url value="/" var="searchUrl">
-                        <c:param name="cateId" value="${c.id}" /> 
-                    </c:url>
-                    <li class="nav-item">
-                        <a class="nav-link" href="${searchUrl}">${c.name}</a>
-                    </li>
-                </c:forEach>
+                 <li class="nav-item">
+                    <a class="nav-link" href="${action}#">Đăng kí lịch khám</a>
+                </li>
                 <c:choose>
                     <c:when test="${pageContext.request.userPrincipal.name != null}">
                         <li class="nav-item">

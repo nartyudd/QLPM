@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  *
@@ -25,25 +26,25 @@ public class MedicineController {
     @Autowired
     private MedicineService medicineService;
     
-    @GetMapping("/medicines")
+    @GetMapping("/medicine")
     public String list(Model model) {
-        model.addAttribute("medicines", new Medicine());
-        return "medicines";
+        model.addAttribute("medicine", new Medicine());
+        return "medicine";
     }
     
-    @GetMapping("/medicines/{id}")
+    @RequestMapping("/medicine/{id}")
     public String update(Model model, @PathVariable(value = "id") int id) {
         model.addAttribute("medicine", this.medicineService.getMedicineById(id));
-        return "medicines";
+        return "medicine";
     }
     
-    @PostMapping("/medicines")
-    public String add(@ModelAttribute(value = "medicines") @Valid Medicine p,
+    @PostMapping("/medicine")
+    public String add(@ModelAttribute(value = "medicine") @Valid Medicine p,
             BindingResult rs) {
         if (!rs.hasErrors())
             if (this.medicineService.addOrUpdateMedicine(p) == true)
                 return "redirect:/";
         
-        return "medicines";
+        return "medicine";
     }
 }

@@ -28,6 +28,7 @@ public class MedicineServiceImpl implements MedicineService {
     @Autowired
     private Cloudinary cloudinary;
     
+    @Override
     public List<Medicine> getMedicine(Map<String, String> params) {
         return this.medicineRepo.getMedicine(params);
     }

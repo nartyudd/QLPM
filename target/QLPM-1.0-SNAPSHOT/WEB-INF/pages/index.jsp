@@ -12,7 +12,7 @@
 <section class="container">
     <h1 class="text-center text-success mt-1">DANH SÁCH THUỐC</h1>
     <div>
-        <a href="<c:url value="/medicines" />" class="btn btn-info mt-1">Thêm thuốc</a>
+        <a href="<c:url value="/medicine" />" class="btn btn-info mt-1">Thêm thuốc</a>
     </div>
     
     <c:if test="${counter > 1}">
@@ -34,7 +34,7 @@
     <table class="table table-hover">
         <tbody>
         <div class="row">
-            <c:forEach items="${medicines}" var="p">
+            <c:forEach items="${medicine}" var="p">
                 <div class="col">
                     <div class="card" style="width: 300px">
                         <div class="card-body">
@@ -42,8 +42,7 @@
                             <h4 class="card-title">${p.medicineName}</h4>
                             <p class="card-text">${p.unitPrice} VNĐ</p>
                             <p>
-
-                                <c:url value="/medicines/${p.id}" var="api" />
+                                <c:url value="/medicine/${p.id}" var="api" />
                                 <a href="${api}" class="btn btn-info">Cập nhật</a>
                                 <button class="btn btn-danger" onclick="deleteMedicine('${api}')">Xóa</button>
 

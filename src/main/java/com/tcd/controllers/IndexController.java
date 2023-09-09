@@ -7,6 +7,7 @@ package com.tcd.controllers;
 import com.tcd.service.MedicineService;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,17 +21,20 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Controller
 @ControllerAdvice
+@PropertySource("classpath:configs.properties")
 public class IndexController {
     @Autowired
     private MedicineService medicineService;
     @Autowired
     private Environment env;
+    
     @RequestMapping("/")
     public String index(Model model, @RequestParam Map<String, String> params) {
-        model.addAttribute("medicines", this.medicineService.getMedicine(params));
+        model.addAttribute("medicine", this.medicineService.getMedicine(params));
+        
+        int pageSize = Integer.parseInt(env.getProperty("PAGE_SIZE"));
         int count = this.medicineService.countMedicine();
-        int pageSize = Integer.parseInt(env.getProperty("PAGE_SIZE").toString());
-        model.addAttribute("pages", Math.ceil(count*1.0/pageSize));
+        model.addAttribute("counter", Math.ceil(count*1.0/pageSize));
         
         return "index";
     }

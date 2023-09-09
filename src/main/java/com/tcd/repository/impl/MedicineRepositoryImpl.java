@@ -1,4 +1,3 @@
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -37,7 +36,8 @@ public class MedicineRepositoryImpl implements MedicineRepository {
     private LocalSessionFactoryBean factory;
     @Autowired
     private Environment env;
-
+    
+    @Override
     public List<Medicine> getMedicine(Map<String, String> params) {
         Session s = this.factory.getObject().getCurrentSession();
         CriteriaBuilder b = s.getCriteriaBuilder();
@@ -50,24 +50,18 @@ public class MedicineRepositoryImpl implements MedicineRepository {
 
             String kw = params.get("kw");
             if (kw != null && !kw.isEmpty()) {
-                predicates.add(b.like(root.get("name"), String.format("%%%s%%", kw)));
+                predicates.add(b.like(root.get("medicineName"), String.format("%%%s%%", kw)));
             }
 
-            String fromPrice = params.get("fromPrice");
-            if (fromPrice != null && !fromPrice.isEmpty()) {
-                predicates.add(b.greaterThanOrEqualTo(root.get("price"), Double.parseDouble(fromPrice)));
+            String fromunitPrice = params.get("fromunitPrice");
+            if (fromunitPrice != null && !fromunitPrice.isEmpty()) {
+                predicates.add(b.greaterThanOrEqualTo(root.get("unitPrice"), Double.parseDouble(fromunitPrice)));
             }
 
-            String toPrice = params.get("toPrice");
-            if (toPrice != null && !toPrice.isEmpty()) {
-                predicates.add(b.lessThanOrEqualTo(root.get("price"), Double.parseDouble(toPrice)));
+            String tounitPrice = params.get("tounitPrice");
+            if (tounitPrice != null && !tounitPrice.isEmpty()) {
+                predicates.add(b.lessThanOrEqualTo(root.get("unitPrice"), Double.parseDouble(tounitPrice)));
             }
-
-            String cateId = params.get("cateId");
-            if (cateId != null && !cateId.isEmpty()) {
-                predicates.add(b.equal(root.get("categoryId"), Integer.parseInt(cateId)));
-            }
-
             q.where(b.and(predicates.toArray(new Predicate[0])));
         }
 
@@ -77,8 +71,8 @@ public class MedicineRepositoryImpl implements MedicineRepository {
 
         if (params != null) {
             String page = params.get("page");
+            int pageSize = Integer.parseInt(this.env.getProperty("PAGE_SIZE"));
             if (page != null) {
-                int pageSize = Integer.parseInt(this.env.getProperty("PAGE_SIZE"));
                 query.setFirstResult((Integer.parseInt(page) - 1) * pageSize);
                 query.setMaxResults(pageSize);
             }
@@ -87,14 +81,15 @@ public class MedicineRepositoryImpl implements MedicineRepository {
         return query.getResultList();
 
     }
-
+    
+    @Override
     public int countMedicine() {
         Session s = this.factory.getObject().getCurrentSession();
         Query q = s.createQuery("SELECT COUNT(*) FROM Medicine");
 
         return Integer.parseInt(q.getSingleResult().toString());
     }
-
+    @Override
     public boolean addOrUpdateMedicine(Medicine p) {
         Session s = this.factory.getObject().getCurrentSession();
         try {
@@ -118,8 +113,9 @@ public class MedicineRepositoryImpl implements MedicineRepository {
 
     public boolean deleteMedicine(int id) {
         Session s = this.factory.getObject().getCurrentSession();
-        Medicine p = this.getMedicineById(id);
+        
         try {
+            Medicine p = this.getMedicineById(id);
             s.delete(p);
             return true;
         } catch (HibernateException ex) {
