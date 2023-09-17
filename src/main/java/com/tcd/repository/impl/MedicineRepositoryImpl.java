@@ -36,7 +36,7 @@ public class MedicineRepositoryImpl implements MedicineRepository {
     private LocalSessionFactoryBean factory;
     @Autowired
     private Environment env;
-    
+
     @Override
     public List<Medicine> getMedicine(Map<String, String> params) {
         Session s = this.factory.getObject().getCurrentSession();
@@ -81,7 +81,7 @@ public class MedicineRepositoryImpl implements MedicineRepository {
         return query.getResultList();
 
     }
-    
+
     @Override
     public int countMedicine() {
         Session s = this.factory.getObject().getCurrentSession();
@@ -89,6 +89,7 @@ public class MedicineRepositoryImpl implements MedicineRepository {
 
         return Integer.parseInt(q.getSingleResult().toString());
     }
+
     @Override
     public boolean addOrUpdateMedicine(Medicine p) {
         Session s = this.factory.getObject().getCurrentSession();
@@ -113,7 +114,7 @@ public class MedicineRepositoryImpl implements MedicineRepository {
 
     public boolean deleteMedicine(int id) {
         Session s = this.factory.getObject().getCurrentSession();
-        
+
         try {
             Medicine p = this.getMedicineById(id);
             s.delete(p);
@@ -122,5 +123,16 @@ public class MedicineRepositoryImpl implements MedicineRepository {
             ex.printStackTrace();
             return false;
         }
+    }
+
+    @Override
+    public List<Medicine> listMedicine() {
+        Session s = this.factory.getObject().getCurrentSession();
+        CriteriaBuilder b = s.getCriteriaBuilder();
+        CriteriaQuery<Medicine> q = b.createQuery(Medicine.class);
+        Root root = q.from(Medicine.class);
+        q.select(root);
+        Query query = s.createQuery(q);
+        return query.getResultList();
     }
 }

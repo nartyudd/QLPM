@@ -4,7 +4,7 @@
  */
 package com.tcd.repository.impl;
 
-import com.tcd.pojo.Userlogin;
+import com.tcd.pojo.User;
 import com.tcd.repository.UserRepository;
 import javax.persistence.Query;
 import org.hibernate.Session;
@@ -24,11 +24,11 @@ public class UserRepositoryImpl implements UserRepository {
     private LocalSessionFactoryBean factory;
 
     @Override
-    public Userlogin getUserByUsername(String username) {
+    public User getUserByUsername(String username) {
         Session s = this.factory.getObject().getCurrentSession();
         Query q = s.createQuery("From User Where username=:un");
         q.setParameter("un", username);
         
-        return (Userlogin) q.getSingleResult();
+        return (User) q.getSingleResult();
     }
 }

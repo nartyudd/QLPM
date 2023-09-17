@@ -8,7 +8,6 @@ import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import java.text.SimpleDateFormat;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -36,9 +35,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 })
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    
     @Autowired
-    @Qualifier("userDetailsService")
     private UserDetailsService userDetailsService;
      @Autowired
     private Environment env;
@@ -63,9 +60,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.formLogin().loginPage("/login")
                 .usernameParameter("username")
-                .passwordParameter("password");
-        
-        http.formLogin().defaultSuccessUrl("/")
+                .passwordParameter("password")
+                .defaultSuccessUrl("/#")
                 .failureUrl("/login?error");
         
         http.logout().logoutSuccessUrl("/login");
@@ -73,15 +69,16 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         http.exceptionHandling()
                 .accessDeniedPage("/login?accessDenied");
         
-//        http.authorizeRequests().antMatchers("/").permitAll()
-//                .antMatchers("/**/add")
-//                .access("hasRole('ROLE_ADMIN')");
-//        .antMatchers("/**/pay")
-//                .access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+       http.authorizeRequests()
+                .antMatchers("/login").permitAll()
+                .antMatchers("/").access("hasRole('ROLE_ADMIN')")
+                .antMatchers("/medicine").access("hasRole('ROLE_ADMIN')");
+                
+       
         http.csrf().disable();
     }
     
-    @Bean
+     @Bean
     public Cloudinary cloudinary() {
         Cloudinary cloudinary
                 = new Cloudinary(ObjectUtils.asMap(
@@ -92,7 +89,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         return cloudinary;
     }
     
-    @Bean
+     @Bean
     public SimpleDateFormat simpleDateFormat() {
         return new SimpleDateFormat("yyyy-MM-dd");
     }

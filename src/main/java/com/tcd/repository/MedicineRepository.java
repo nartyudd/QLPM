@@ -18,7 +18,7 @@ public interface MedicineRepository {
     boolean addOrUpdateMedicine(Medicine p);
     Medicine getMedicineById(int id);
     boolean deleteMedicine(int id);
-
+    List<Medicine> listMedicine();
     
 }
 

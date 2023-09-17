@@ -61,5 +61,11 @@ public class MedicineServiceImpl implements MedicineService {
     public boolean deleteMedicine(int id) {
         return this.medicineRepo.deleteMedicine(id);
     }
+
+    @Override
+    public List<Medicine> listMedicine() {
+    
+        return this.medicineRepo.listMedicine();
+    }
     
 }

@@ -23,28 +23,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class MedicineController {
+
     @Autowired
     private MedicineService medicineService;
-    
+
     @GetMapping("/medicine")
     public String list(Model model) {
         model.addAttribute("medicine", new Medicine());
         return "medicine";
     }
-    
+
     @RequestMapping("/medicine/{id}")
     public String update(Model model, @PathVariable(value = "id") int id) {
         model.addAttribute("medicine", this.medicineService.getMedicineById(id));
         return "medicine";
     }
-    
+
     @PostMapping("/medicine")
     public String add(@ModelAttribute(value = "medicine") @Valid Medicine p,
             BindingResult rs) {
-        if (!rs.hasErrors())
-            if (this.medicineService.addOrUpdateMedicine(p) == true)
-                return "redirect:/";
-        
+
+        if (this.medicineService.addOrUpdateMedicine(p) == true) {
+
+            return "redirect:/";
+        }
+
         return "medicine";
     }
 }

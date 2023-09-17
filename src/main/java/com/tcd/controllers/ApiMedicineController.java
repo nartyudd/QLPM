@@ -37,9 +37,10 @@ public class ApiMedicineController {
         this.medicineService.deleteMedicine(id);
     }
     
-    @GetMapping("/medicine/")
+    @RequestMapping("/medicines/")
     @CrossOrigin
-    public ResponseEntity<List<Medicine>> list(@RequestParam Map<String, String> params) {
-        return new ResponseEntity<>(this.medicineService.getMedicine(params), HttpStatus.OK);
+    public ResponseEntity<List<Medicine>> list() {
+        System.out.println(this.medicineService.listMedicine());
+        return new ResponseEntity<>(this.medicineService.listMedicine(), HttpStatus.OK);
     }
 }

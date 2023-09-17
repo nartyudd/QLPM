@@ -4,12 +4,12 @@
  */
 package com.tcd.repository;
 
-import com.tcd.pojo.Userlogin;
+import com.tcd.pojo.User;
 
 /**
  *
  * @author admin
  */
 public interface UserRepository {
-    Userlogin getUserByUsername(String username);
+    User getUserByUsername(String username);
 }

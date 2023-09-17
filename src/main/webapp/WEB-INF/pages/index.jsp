@@ -14,7 +14,6 @@
     <div>
         <a href="<c:url value="/medicine" />" class="btn btn-info mt-1">Thêm thuốc</a>
     </div>
-    
     <c:if test="${counter > 1}">
         <ul class="pagination mt-1">
             <li class="page-item"><a class="page-link" href="${action}">Tất cả</a></li>
@@ -43,8 +42,10 @@
                             <p class="card-text">${p.unitPrice} VNĐ</p>
                             <p>
                                 <c:url value="/medicine/${p.id}" var="api" />
+                                <c:url value="/api/medicine/${p.id}" var="apiDel" />
+
                                 <a href="${api}" class="btn btn-info">Cập nhật</a>
-                                <button class="btn btn-danger" onclick="deleteMedicine('${api}')">Xóa</button>
+                                <button class="btn btn-danger" onclick="deleteMedicine('${apiDel}')">Xóa</button>
 
                             </p>
                         </div>

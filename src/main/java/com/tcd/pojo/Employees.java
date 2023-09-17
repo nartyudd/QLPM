@@ -12,8 +12,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -61,16 +59,11 @@ public class Employees implements Serializable {
     @Size(max = 255)
     @Column(name = "email")
     private String email;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
+    @Size(max = 100)
     @Column(name = "role")
     private String role;
     @OneToMany(mappedBy = "employeesId")
     private Collection<Appointments> appointmentsCollection;
-    @JoinColumn(name = "user_id", referencedColumnName = "userlogin_id")
-    @ManyToOne(optional = false)
-    private Userlogin userId;
     @OneToMany(mappedBy = "employeesId")
     private Collection<Prescriptions> prescriptionsCollection;
 
@@ -81,10 +74,9 @@ public class Employees implements Serializable {
         this.employeesId = employeesId;
     }
 
-    public Employees(Integer employeesId, String tennhanvien, String role) {
+    public Employees(Integer employeesId, String tennhanvien) {
         this.employeesId = employeesId;
         this.tennhanvien = tennhanvien;
-        this.role = role;
     }
 
     public Integer getEmployeesId() {
@@ -142,14 +134,6 @@ public class Employees implements Serializable {
 
     public void setAppointmentsCollection(Collection<Appointments> appointmentsCollection) {
         this.appointmentsCollection = appointmentsCollection;
-    }
-
-    public Userlogin getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Userlogin userId) {
-        this.userId = userId;
     }
 
     @XmlTransient

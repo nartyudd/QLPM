@@ -13,9 +13,17 @@ import java.util.Map;
  * @author admin
  */
 public interface MedicineService {
+
     List<Medicine> getMedicine(Map<String, String> params);
+
     int countMedicine();
+
     boolean addOrUpdateMedicine(Medicine p);
+
     Medicine getMedicineById(int id);
+
     boolean deleteMedicine(int id);
+
+    List<Medicine> listMedicine();
+
 }

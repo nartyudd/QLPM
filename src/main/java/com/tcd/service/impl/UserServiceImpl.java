@@ -4,7 +4,7 @@
  */
 package com.tcd.service.impl;
 
-import com.tcd.pojo.Userlogin;
+import com.tcd.pojo.User;
 import com.tcd.repository.UserRepository;
 import com.tcd.service.UserService;
 import java.util.HashSet;
@@ -28,13 +28,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Userlogin u = this.userRepo.getUserByUsername(username);
+        User u = this.userRepo.getUserByUsername(username);
         if (u == null) {
             throw new UsernameNotFoundException("Invalid user!");
         }
 
         Set<GrantedAuthority> authorities = new HashSet<>();
-        authorities.add(new SimpleGrantedAuthority(u.getPermissions()));
+        authorities.add(new SimpleGrantedAuthority(u.getUserRole()));
         
         return new org.springframework.security.core.userdetails.User(
                 u.getUsername(), u.getPassword(), authorities);

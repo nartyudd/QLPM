@@ -12,7 +12,7 @@
 
 <c:url value="/medicine" var="action" />
 <form:form modelAttribute="medicine" method="post" action="${action}" enctype="multipart/form-data">
-    
+
     <div class="form-floating mb-3 mt-3">
         <form:input type="text" class="form-control" path="medicineName" id="name" placeholder="Tên thuốc" name="name" />
         <label for="name">Tên thuốc</label>
@@ -28,18 +28,20 @@
         <label for="name">Giá thuốc</label>
         <form:errors path="unitPrice" element="div" cssClass="text-danger" />
     </div>
+    <div class="form-floating mb-3 mt-3">
         <div class="form-floating mb-3 mt-3">
-        <form:input type="text" class="form-control" path="image"/>
-        <label for="image">Ảnh sản phẩm</label>
+        <form:input type="file" class="form-control" path="file" id="file"  />
+        <label for="file">Ảnh sản phẩm</label>
         <c:if test="${medicine.image != null}">
-            <<img src="${medicine.image}"  style="width: 120px"/>
+            <img src="${medicine.image}" width="120" />
         </c:if>
+    </div>
     </div>
     <div class="form-floating mb-3 mt-3">
         <button type="submit" class="btn btn-info">
             <c:choose>
-                    <c:when test="${medicine.id != null}">Cập nhật sản phẩm</c:when>
-                    <c:otherwise>Thêm sản phẩm</c:otherwise>
+                <c:when test="${medicine.id != null}">Cập nhật sản phẩm</c:when>
+                <c:otherwise>Thêm sản phẩm</c:otherwise>
             </c:choose>
         </button>
     </div>

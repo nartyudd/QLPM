@@ -18,6 +18,7 @@
         <input type="password" class="form-control" id="pwd" placeholder="Mật khẩu" name="password">
         <label for="pwd">Mật khẩu</label>
     </div>
+    
     <div class="form-floating mt-3 mb-3">
         <input type="submit" value="Đăng nhập" class="btn btn-danger" />
     </div>

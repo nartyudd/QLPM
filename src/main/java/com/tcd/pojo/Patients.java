@@ -13,9 +13,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -84,9 +82,6 @@ public class Patients implements Serializable {
     private Collection<Appointments> appointmentsCollection;
     @OneToMany(mappedBy = "patientId")
     private Collection<Invoices> invoicesCollection;
-    @JoinColumn(name = "user_id", referencedColumnName = "userlogin_id")
-    @ManyToOne(optional = false)
-    private Userlogin userId;
     @OneToMany(mappedBy = "patientId")
     private Collection<Appointmenthistory> appointmenthistoryCollection;
     @OneToMany(mappedBy = "patientId")
@@ -192,14 +187,6 @@ public class Patients implements Serializable {
 
     public void setInvoicesCollection(Collection<Invoices> invoicesCollection) {
         this.invoicesCollection = invoicesCollection;
-    }
-
-    public Userlogin getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Userlogin userId) {
-        this.userId = userId;
     }
 
     @XmlTransient

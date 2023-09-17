@@ -1,4 +1,6 @@
-function deleleMedicine(path) {
+function deleteMedicine(path) {
+    
+    
     if (confirm("Bạn chắc chắn xóa không?") === true) {
         fetch(path, {
             method: "delete"
